@@ -7,6 +7,7 @@ import {
   StyledMainHeadline,
   StyledBoard,
   StyledBoardHeadline,
+  StyledInstruction,
 } from "../../styledComponents";
 
 export default function SetupScreen({
@@ -44,7 +45,9 @@ export default function SetupScreen({
     <StyledGameContainer>
       <StyledLine />
       <StyledMainHeadline>Game Setup</StyledMainHeadline>
-
+      <StyledSetupInstruction>
+        Enter player names and number of rounds.
+      </StyledSetupInstruction>
       <StyledPlayerForm onSubmit={handlePlayerSubmit}>
         <StyledInputWrapper>
           <StyledPlayerLabel htmlFor="player">
@@ -98,6 +101,10 @@ export default function SetupScreen({
     </StyledGameContainer>
   );
 }
+
+const StyledSetupInstruction = styled(StyledInstruction)`
+  padding-top: 0;
+`;
 
 const StyledLabel = styled.label`
   text-align: center;

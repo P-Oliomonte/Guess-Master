@@ -1,4 +1,5 @@
 import Head from "next/head";
+
 import useLocalStorageState from "use-local-storage-state";
 import StartScreen from "../../components/Start/StartScreen";
 import SetupScreen from "../../components/Setup/SetupScreen";
@@ -13,6 +14,10 @@ export default function Home({ mode, handleChangeMode }) {
     defaultValue: [],
   });
 
+  const [question, setQuestion] = useLocalStorageState("question", {
+    defaultValue: "",
+  });
+
   function handleChangeGame(game) {
     setGame(game);
   }
@@ -25,6 +30,29 @@ export default function Home({ mode, handleChangeMode }) {
     const newPlayers = players.filter((player) => player.playerId !== playerId);
     setPlayers(newPlayers);
   }
+
+  function handleChangeQuestion(question) {
+    setQuestion(question);
+  }
+
+  async function getAiQuestion() {
+    console.log("Getting AI question...");
+    try {
+      const response = await fetch("/api/question");
+
+      if (!response.ok) {
+        throw new Error(`HTTP error! status: ${response.status}`);
+      }
+
+      const aiQuestion = await response.json();
+      setQuestion(aiQuestion);
+    } catch (error) {
+      console.error("Error fetching question:", error);
+      throw error;
+    }
+  }
+
+  console.log(question);
 
   return (
     <>
@@ -48,7 +76,15 @@ export default function Home({ mode, handleChangeMode }) {
             onDeletePlayer={handleDeletePlayer}
           />
         )}
-        {mode === "question" && <QuestionScreen />}
+        {mode === "question" && (
+          <QuestionScreen
+            question={question}
+            onChangeQuestion={handleChangeQuestion}
+            game={game}
+            players={players}
+            getAiQuestion={getAiQuestion}
+          />
+        )}
       </div>
     </>
   );

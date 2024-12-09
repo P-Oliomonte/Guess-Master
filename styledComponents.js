@@ -80,6 +80,6 @@ export const StyledBoardHeadline = styled.h3`
 
 export const StyledInstruction = styled.p`
   font: var(--instruction);
-  color: var(--secondary-light);
+  color: var(--primary-light);
   padding: 20px 0;
 `;

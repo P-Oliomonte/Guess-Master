@@ -7,14 +7,43 @@ import {
   StyledInstruction,
 } from "../../styledComponents";
 
-export default function QuestionScreen() {
+export default function QuestionScreen({
+  question,
+  onChangeQuestion,
+  game,
+  players,
+  getAiQuestion,
+}) {
+  console.log(game);
+  console.log(players);
+
+  const currentPlayerIndex = (game.currentRound - 1) % players.length;
+
   return (
     <StyledGameContainer>
       <StyledLine />
-      <StyledMainHeadline>Round 1</StyledMainHeadline>
-      <StyledPlayerName>Name of Player 1</StyledPlayerName>
+      <StyledMainHeadline>Round {game.currentRound}</StyledMainHeadline>
+      <StyledPlayerName>
+        {players[currentPlayerIndex].playerName}
+      </StyledPlayerName>
       <StyledInstruction>Enter your guessing question.</StyledInstruction>
-      <StyledInput type="text" name="question" id="question" />
+      <StyledQuestionInputContainer>
+        <StyledInput
+          type="text"
+          name="question"
+          id="question"
+          value={question}
+          onChange={(event) => onChangeQuestion(event.target.value)}
+        />
+        <StyledAiButton type="button" onClick={getAiQuestion}>
+          <p>AI</p>
+          <img src="./icon-ai.svg" />
+        </StyledAiButton>
+      </StyledQuestionInputContainer>
+
+      <StyledQuestionBoard>
+        <StyledQuestion>{question}</StyledQuestion>
+      </StyledQuestionBoard>
 
       <StyledLine />
       <StyledMainButton type="button">Submit</StyledMainButton>
@@ -23,7 +52,7 @@ export default function QuestionScreen() {
 }
 
 const StyledPlayerName = styled.p`
-  font: var(--regular);
+  font: var(--instruction);
   color: var(--neutral-light);
   background: var(--gradient);
   padding: 8px 10px;
@@ -44,4 +73,49 @@ const StyledInput = styled.input`
   &:focus {
     outline: none;
   }
+`;
+
+const StyledAiButton = styled.button`
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 2px;
+  font: var(--button);
+  color: var(--neutral-light);
+  background-color: var(--secondary-light);
+  min-width: 45px;
+  height: 26px;
+  border: none;
+  border-radius: 13px;
+  cursor: pointer;
+  transition: background 0.3s ease;
+
+  &:hover {
+    background-color: var(--primary-light);
+  }
+
+  &:active {
+    background-color: var(--primary-light);
+  }
+`;
+
+const StyledQuestionInputContainer = styled.div`
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  width: 100%;
+  gap: 5px;
+  margin-bottom: 15px;
+`;
+
+const StyledQuestionBoard = styled.section`
+  width: 100%;
+  padding: 15px;
+  background: var(--gradient);
+  border-radius: 10px;
+`;
+
+const StyledQuestion = styled.p`
+  font: var(--question);
+  color: var(--neutral-light);
 `;
