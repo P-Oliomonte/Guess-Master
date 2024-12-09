@@ -4,6 +4,7 @@ import useLocalStorageState from "use-local-storage-state";
 import StartScreen from "../../components/Start/StartScreen";
 import SetupScreen from "../../components/Setup/SetupScreen";
 import QuestionScreen from "../../components/Question/QuestionScreen";
+import { useState } from "react";
 
 export default function Home({ mode, handleChangeMode }) {
   const [players, setPlayers] = useLocalStorageState("players", {
@@ -17,6 +18,8 @@ export default function Home({ mode, handleChangeMode }) {
   const [question, setQuestion] = useLocalStorageState("question", {
     defaultValue: "",
   });
+
+  const [questionSpinner, setQuestionSpinner] = useState(false);
 
   function handleChangeGame(game) {
     setGame(game);
@@ -36,9 +39,10 @@ export default function Home({ mode, handleChangeMode }) {
   }
 
   async function getAiQuestion() {
-    console.log("Getting AI question...");
+    setQuestionSpinner(true);
     try {
       const response = await fetch("/api/question");
+      setQuestionSpinner(false);
 
       if (!response.ok) {
         throw new Error(`HTTP error! status: ${response.status}`);
@@ -51,8 +55,6 @@ export default function Home({ mode, handleChangeMode }) {
       throw error;
     }
   }
-
-  console.log(question);
 
   return (
     <>
@@ -83,6 +85,7 @@ export default function Home({ mode, handleChangeMode }) {
             game={game}
             players={players}
             getAiQuestion={getAiQuestion}
+            questionSpinner={questionSpinner}
           />
         )}
       </div>

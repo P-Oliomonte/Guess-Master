@@ -6,6 +6,7 @@ import {
   StyledMainButton,
   StyledInstruction,
 } from "../../styledComponents";
+import LoadingSpinner from "../LoadingSpinner/LoadingSpinner";
 
 export default function QuestionScreen({
   question,
@@ -13,10 +14,8 @@ export default function QuestionScreen({
   game,
   players,
   getAiQuestion,
+  questionSpinner,
 }) {
-  console.log(game);
-  console.log(players);
-
   const currentPlayerIndex = (game.currentRound - 1) % players.length;
 
   return (
@@ -26,13 +25,15 @@ export default function QuestionScreen({
       <StyledPlayerName>
         {players[currentPlayerIndex].playerName}
       </StyledPlayerName>
-      <StyledInstruction>Enter your guessing question.</StyledInstruction>
+      <StyledInstruction>
+        Enter your guessing question or let AI generate one.
+      </StyledInstruction>
       <StyledQuestionInputContainer>
         <StyledInput
           type="text"
           name="question"
           id="question"
-          value={question}
+          value={questionSpinner ? "" : question}
           onChange={(event) => onChangeQuestion(event.target.value)}
         />
         <StyledAiButton type="button" onClick={getAiQuestion}>
@@ -42,7 +43,8 @@ export default function QuestionScreen({
       </StyledQuestionInputContainer>
 
       <StyledQuestionBoard>
-        <StyledQuestion>{question}</StyledQuestion>
+        {questionSpinner && <LoadingSpinner />}
+        {!questionSpinner && <StyledQuestion>{question}</StyledQuestion>}
       </StyledQuestionBoard>
 
       <StyledLine />
