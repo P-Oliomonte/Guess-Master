@@ -5,6 +5,9 @@ import {
   StyledLine,
   StyledMainButton,
   StyledMainHeadline,
+  StyledInputWrapper,
+  StyledLabel,
+  StyledInput,
   StyledBoard,
   StyledBoardHeadline,
   StyledInstruction,
@@ -106,35 +109,8 @@ const StyledSetupInstruction = styled(StyledInstruction)`
   padding-top: 0;
 `;
 
-const StyledLabel = styled.label`
-  text-align: center;
-  align-content: center;
-  display: inline-block;
-  font: var(--regular);
-  color: var(--neutral-light);
-  height: 26px;
-  background: var(--gradient);
-  border-radius: 13px 0 0 13px;
-`;
-
 const StyledPlayerLabel = styled(StyledLabel)`
   min-width: 60px;
-`;
-
-const StyledInput = styled.input`
-  display: inline-block;
-  font: var(--regular);
-  color: var(--neutral-light);
-  width: 100%;
-  height: 26px;
-  background-color: var(--primary-dark);
-  border: 1px solid var(--secondary-light);
-  border-radius: 0 13px 13px 0;
-  padding: 0 10px;
-
-  &:focus {
-    outline: none;
-  }
 `;
 
 const StyledFormButton = styled.button`
@@ -192,11 +168,6 @@ const StyledRoundsInput = styled(StyledInput)`
   }
 
   -moz-appearance: textfield;
-`;
-
-const StyledInputWrapper = styled.div`
-  display: flex;
-  width: 100%;
 `;
 
 const StyledPlayerCard = styled.div`
