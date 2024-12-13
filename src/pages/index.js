@@ -4,6 +4,8 @@ import useLocalStorageState from "use-local-storage-state";
 import StartScreen from "../../components/Start/StartScreen";
 import SetupScreen from "../../components/Setup/SetupScreen";
 import QuestionScreen from "../../components/Question/QuestionScreen";
+import AnswerScreen from "../../components/Answer/AnswerScreen";
+import { useState } from "react";
 
 export default function Home({ mode, handleChangeMode }) {
   const [players, setPlayers] = useLocalStorageState("players", {
@@ -17,6 +19,12 @@ export default function Home({ mode, handleChangeMode }) {
   const [question, setQuestion] = useLocalStorageState("question", {
     defaultValue: "",
   });
+
+  const [result, setResult] = useLocalStorageState("result", {
+    defaultValue: {},
+  });
+
+  const [questionSpinner, setQuestionSpinner] = useState(false);
 
   function handleChangeGame(game) {
     setGame(game);
@@ -36,9 +44,10 @@ export default function Home({ mode, handleChangeMode }) {
   }
 
   async function getAiQuestion() {
-    console.log("Getting AI question...");
+    setQuestionSpinner(true);
     try {
       const response = await fetch("/api/question");
+      setQuestionSpinner(false);
 
       if (!response.ok) {
         throw new Error(`HTTP error! status: ${response.status}`);
@@ -52,7 +61,29 @@ export default function Home({ mode, handleChangeMode }) {
     }
   }
 
-  console.log(question);
+  async function getAiAnswer(aiInput) {
+    console.log("AI input:", aiInput);
+    try {
+      const response = await fetch("/api/answer", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(aiInput),
+      });
+
+      const answer = await response.json();
+
+      console.log("Answer:", answer);
+
+      if (!response.ok) {
+        throw new Error(answer.message || "Something went wrong");
+      }
+      setResult(answer);
+    } catch (error) {
+      console.error("Error:", error);
+    }
+  }
 
   return (
     <>
@@ -83,6 +114,17 @@ export default function Home({ mode, handleChangeMode }) {
             game={game}
             players={players}
             getAiQuestion={getAiQuestion}
+            questionSpinner={questionSpinner}
+            onChangeMode={handleChangeMode}
+          />
+        )}
+        {mode === "answer" && (
+          <AnswerScreen
+            question={question}
+            game={game}
+            players={players}
+            onChangeMode={handleChangeMode}
+            getAiAnswer={getAiAnswer}
           />
         )}
       </div>

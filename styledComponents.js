@@ -83,3 +83,48 @@ export const StyledInstruction = styled.p`
   color: var(--primary-light);
   padding: 20px 0;
 `;
+
+export const StyledLabel = styled.label`
+  text-align: left;
+  align-content: center;
+  display: inline-block;
+  font: var(--regular);
+  color: var(--neutral-light);
+  height: 26px;
+  background: var(--gradient);
+  border-radius: 13px 0 0 13px;
+  padding: 0 10px;
+`;
+
+export const StyledInput = styled.input`
+  display: inline-block;
+  font: var(--regular);
+  color: var(--neutral-light);
+  width: 100%;
+  height: 26px;
+  background-color: var(--primary-dark);
+  border: 1px solid var(--secondary-light);
+  border-radius: 0 13px 13px 0;
+  padding: 0 10px;
+
+  &:focus {
+    outline: none;
+  }
+`;
+
+export const StyledInputWrapper = styled.div`
+  display: flex;
+  width: 100%;
+`;
+
+export const StyledQuestionBoard = styled.section`
+  width: 100%;
+  padding: 15px;
+  background: var(--gradient);
+  border-radius: 10px;
+`;
+
+export const StyledQuestion = styled.p`
+  font: var(--question);
+  color: var(--neutral-light);
+`;

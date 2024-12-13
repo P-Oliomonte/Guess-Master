@@ -5,7 +5,10 @@ import {
   StyledMainHeadline,
   StyledMainButton,
   StyledInstruction,
+  StyledQuestionBoard,
+  StyledQuestion,
 } from "../../styledComponents";
+import LoadingSpinner from "../LoadingSpinner/LoadingSpinner";
 
 export default function QuestionScreen({
   question,
@@ -13,10 +16,9 @@ export default function QuestionScreen({
   game,
   players,
   getAiQuestion,
+  questionSpinner,
+  onChangeMode,
 }) {
-  console.log(game);
-  console.log(players);
-
   const currentPlayerIndex = (game.currentRound - 1) % players.length;
 
   return (
@@ -26,13 +28,15 @@ export default function QuestionScreen({
       <StyledPlayerName>
         {players[currentPlayerIndex].playerName}
       </StyledPlayerName>
-      <StyledInstruction>Enter your guessing question.</StyledInstruction>
+      <StyledInstruction>
+        Enter your guessing question or let AI generate one.
+      </StyledInstruction>
       <StyledQuestionInputContainer>
         <StyledInput
           type="text"
           name="question"
           id="question"
-          value={question}
+          value={questionSpinner ? "" : question}
           onChange={(event) => onChangeQuestion(event.target.value)}
         />
         <StyledAiButton type="button" onClick={getAiQuestion}>
@@ -42,11 +46,14 @@ export default function QuestionScreen({
       </StyledQuestionInputContainer>
 
       <StyledQuestionBoard>
-        <StyledQuestion>{question}</StyledQuestion>
+        {questionSpinner && <LoadingSpinner />}
+        {!questionSpinner && <StyledQuestion>{question}</StyledQuestion>}
       </StyledQuestionBoard>
 
       <StyledLine />
-      <StyledMainButton type="button">Submit</StyledMainButton>
+      <StyledMainButton type="button" onClick={() => onChangeMode("answer")}>
+        Submit
+      </StyledMainButton>
     </StyledGameContainer>
   );
 }
@@ -106,16 +113,4 @@ const StyledQuestionInputContainer = styled.div`
   width: 100%;
   gap: 5px;
   margin-bottom: 15px;
-`;
-
-const StyledQuestionBoard = styled.section`
-  width: 100%;
-  padding: 15px;
-  background: var(--gradient);
-  border-radius: 10px;
-`;
-
-const StyledQuestion = styled.p`
-  font: var(--question);
-  color: var(--neutral-light);
 `;
