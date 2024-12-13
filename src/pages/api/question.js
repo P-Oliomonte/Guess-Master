@@ -20,7 +20,7 @@ export default async function handler(request, response) {
     - Be about interesting or surprising quantities or measurements.    
     
     Your response must:
-    - Be a single question as a string in valid JSON format (e.g. "The response is supoosed to be a string like this").
+    - Be a single question as a string in valid JSON format (e.g. "The response is supposed to be a string like this" but never exactly this).
     - Contain no additional text, explanations, or formatting such as \`\`\`json.
     `;
 
@@ -29,6 +29,11 @@ export default async function handler(request, response) {
       messages: [
         {
           role: "system",
+          content:
+            "You are a helpful, very crative assistant and talented game show writer.",
+        },
+        {
+          role: "user",
           content: prompt,
         },
       ],
