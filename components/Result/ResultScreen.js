@@ -13,6 +13,8 @@ import {
   StyledBoardHeadline,
   StyledBoardHeaderWrapper,
   StyledBoardHeaderContent,
+  StyledResultsWrapper,
+  StyledResults,
 } from "../../styledComponents";
 import { useState, useEffect } from "react";
 
@@ -187,23 +189,6 @@ export const StyledSmallButton = styled.button`
   &:active {
     background: var(--secondary-light);
   }
-`;
-
-const StyledResultsWrapper = styled.div`
-  display: flex;
-  justify-content: space-between;
-  gap: 4px;
-  width: 100%;
-`;
-
-const StyledResults = styled.div`
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  background-color: var(--primary-dark);
-  height: 29px;
-  padding: 0 10px 0 10px;
-  border-radius: 5px;
 `;
 
 const StyledResultsPlayer = styled(StyledResults)`

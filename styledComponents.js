@@ -96,6 +96,23 @@ export const StyledBoardHeaderContent = styled.p`
   padding: 0 10px;
 `;
 
+export const StyledResultsWrapper = styled.div`
+  display: flex;
+  justify-content: space-between;
+  gap: 4px;
+  width: 100%;
+`;
+
+export const StyledResults = styled.div`
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  background-color: var(--primary-dark);
+  height: 29px;
+  padding: 0 10px 0 10px;
+  border-radius: 5px;
+`;
+
 export const StyledInstruction = styled.p`
   font: var(--instruction);
   color: var(--primary-light);
