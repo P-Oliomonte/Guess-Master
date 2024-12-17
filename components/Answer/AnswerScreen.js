@@ -41,6 +41,7 @@ export default function QuestionScreen({
       players: playersWithAnswers,
     };
 
+    onChangeMode("result");
     getAiAnswer(aiInput);
   }
 

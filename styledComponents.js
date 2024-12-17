@@ -24,24 +24,28 @@ export const StyledMainButton = styled.button`
   font: var(--button);
   cursor: pointer;
   transition: background 0.3s ease;
+  opacity: ${(props) => (props.disabled ? "0.5" : "1")};
 
   &:hover {
-    background: var(--secondary-light);
+    background: ${(props) =>
+      props.disabled ? "var(--primary-dark)" : "var(--secondary-light)"};
   }
 
   &:active {
-    background: var(--secondary-light);
+    background: ${(props) =>
+      props.disabled ? "var(--primary-dark)" : "var(--secondary-light)"};
   }
 `;
 
 export const StyledGameContainer = styled.div`
   margin: 0 auto;
-  padding-top: 110px;
+  padding: 110px 0 50px 0;
   display: flex;
   flex-direction: column;
   justify-content: center;
   align-items: center;
   width: 80%;
+  max-width: 600px;
 `;
 
 export const StyledStartContainer = styled(StyledGameContainer)`
@@ -76,6 +80,20 @@ export const StyledBoardHeadline = styled.h3`
   font: var(--board-headline);
   color: var(--neutral-light);
   padding: 3px 0 3px 0;
+`;
+
+export const StyledBoardHeaderWrapper = styled.div`
+  display: flex;
+  justify-content: space-between;
+  gap: 4px;
+  width: 100%;
+`;
+
+export const StyledBoardHeaderContent = styled.p`
+  font: var(--regular);
+  color: var(--neutral-light);
+  text-align: center;
+  padding: 0 10px;
 `;
 
 export const StyledInstruction = styled.p`
