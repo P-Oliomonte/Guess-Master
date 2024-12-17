@@ -1,47 +1,26 @@
 import Head from "next/head";
-
-import useLocalStorageState from "use-local-storage-state";
 import StartScreen from "../../components/Start/StartScreen";
 import SetupScreen from "../../components/Setup/SetupScreen";
 import QuestionScreen from "../../components/Question/QuestionScreen";
 import AnswerScreen from "../../components/Answer/AnswerScreen";
+import ResultScreen from "../../components/Result/ResultScreen";
 import { useState } from "react";
 
-export default function Home({ mode, handleChangeMode }) {
-  const [players, setPlayers] = useLocalStorageState("players", {
-    defaultValue: [],
-  });
-
-  const [game, setGame] = useLocalStorageState("game", {
-    defaultValue: [],
-  });
-
-  const [question, setQuestion] = useLocalStorageState("question", {
-    defaultValue: "",
-  });
-
-  const [result, setResult] = useLocalStorageState("result", {
-    defaultValue: {},
-  });
-
+export default function Home({
+  mode,
+  handleChangeMode,
+  players,
+  handleAddPlayers,
+  handleDeletePlayer,
+  game,
+  handleChangeGame,
+  question,
+  handleChangeQuestion,
+  result,
+  onChangeResult,
+  handleAddTotalScore,
+}) {
   const [questionSpinner, setQuestionSpinner] = useState(false);
-
-  function handleChangeGame(game) {
-    setGame(game);
-  }
-
-  function handleAddPlayers(newPlayer) {
-    setPlayers([...players, newPlayer]);
-  }
-
-  function handleDeletePlayer(playerId) {
-    const newPlayers = players.filter((player) => player.playerId !== playerId);
-    setPlayers(newPlayers);
-  }
-
-  function handleChangeQuestion(question) {
-    setQuestion(question);
-  }
 
   async function getAiQuestion() {
     setQuestionSpinner(true);
@@ -54,7 +33,7 @@ export default function Home({ mode, handleChangeMode }) {
       }
 
       const aiQuestion = await response.json();
-      setQuestion(aiQuestion);
+      handleChangeQuestion(aiQuestion);
     } catch (error) {
       console.error("Error fetching question:", error);
       throw error;
@@ -62,7 +41,6 @@ export default function Home({ mode, handleChangeMode }) {
   }
 
   async function getAiAnswer(aiInput) {
-    console.log("AI input:", aiInput);
     try {
       const response = await fetch("/api/answer", {
         method: "POST",
@@ -74,12 +52,10 @@ export default function Home({ mode, handleChangeMode }) {
 
       const answer = await response.json();
 
-      console.log("Answer:", answer);
-
       if (!response.ok) {
         throw new Error(answer.message || "Something went wrong");
       }
-      setResult(answer);
+      onChangeResult(answer);
     } catch (error) {
       console.error("Error:", error);
     }
@@ -125,6 +101,16 @@ export default function Home({ mode, handleChangeMode }) {
             players={players}
             onChangeMode={handleChangeMode}
             getAiAnswer={getAiAnswer}
+          />
+        )}
+        {mode === "result" && (
+          <ResultScreen
+            result={result}
+            players={players}
+            game={game}
+            onChangeMode={handleChangeMode}
+            onAddTotalScore={handleAddTotalScore}
+            onChangeResult={onChangeResult}
           />
         )}
       </div>

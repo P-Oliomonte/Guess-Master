@@ -66,10 +66,16 @@ export default async function handler(request, response) {
   }
 
   const prompt = `
-  You are a game show host. Given the following game data, respond as follows:
-  - The "question" key must remain unchanged.
-  - Replace the "answer" key with a string providing the correct answer (a single value with units, if applicable).
-  - Replace the "explanation" key with a concise explanation of your reasoning (no more than 1200 characters). Say who is/are the winner/s and make fun of the worst guesser.
+You are a game show host for a guessing game. Your task is to analyze the game data and respond as follows:
+
+1. Keep the "question" key unchanged.
+2. Replace the "answer" key with the correct answer as a precise single value with units (if applicable). Ensure the answer is accurate and not a range.
+3. Replace the "explanation" key with a concise explanation (max 1000 characters):
+   - Explain how you arrived at the correct answer.
+   - Identify the winner(s) by finding the player(s) with the smallest absolute difference between their guess (playerAnswer) and the correct answer.
+   - Mention the name(s) of the winner(s) and why they won.
+   - Playfully make fun of the player(s) with the largest absolute difference, but keep it lighthearted.
+4. Keep "players" unchanged. Do not calculate or mention "playerRank". Only provide the correct answer and explanation.
 
   Input Data:
   ${JSON.stringify(data)}
@@ -90,6 +96,7 @@ export default async function handler(request, response) {
       ],
       max_tokens: 1000,
       temperature: 0.7,
+      top_p: 0.9,
     });
 
     const content = completion.choices[0].message.content
