@@ -24,6 +24,7 @@ export default function Home({
   handleAddRound,
   handleDeleteQuestion,
   handleDeleteResult,
+  handleResetPlayersScores,
 }) {
   const [questionSpinner, setQuestionSpinner] = useState(false);
 
@@ -129,6 +130,7 @@ export default function Home({
             onDeleteQuestion={handleDeleteQuestion}
             onDeleteResult={handleDeleteResult}
             onChangeGame={handleChangeGame}
+            onResetPlayersScores={handleResetPlayersScores}
           />
         )}
       </div>

@@ -21,9 +21,12 @@ export default function RankingsSceen({
   onDeleteQuestion,
   onDeleteResult,
   onChangeGame,
+  onResetPlayersScores,
 }) {
   const [isWinner, setIsWinner] = useState(false);
   const sortedPlayers = players.sort((a, b) => b.score - a.score);
+
+  console.log("players", players);
 
   useEffect(() => {
     if (game.currentRound === game.numberOfRounds) {
@@ -48,6 +51,7 @@ export default function RankingsSceen({
     onDeleteResult();
     onChangeGame({});
     setIsWinner(false);
+    onResetPlayersScores();
   }
 
   return (

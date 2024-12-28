@@ -60,6 +60,14 @@ export default function App({ Component, pageProps }) {
     );
   }
 
+  function handleResetPlayersScores() {
+    setPlayers((prevPlayers) =>
+      prevPlayers.map((player) => {
+        return { ...player, score: 0 };
+      })
+    );
+  }
+
   function handleChangeQuestion(question) {
     setQuestion(question);
   }
@@ -108,6 +116,7 @@ export default function App({ Component, pageProps }) {
           handleAddRound={handleAddRound}
           handleDeleteQuestion={handleDeleteQuestion}
           handleDeleteResult={handleDeleteResult}
+          handleResetPlayersScores={handleResetPlayersScores}
         />
       </Layout>
     </>
