@@ -36,7 +36,7 @@ export default function SetupScreen({
     event.preventDefault();
     const game = {
       gameId: uid(),
-      numberOfRounds: event.target.numberOfRounds.value,
+      numberOfRounds: parseInt(event.target.numberOfRounds.value),
       currentRound: 1,
       currentPlayer: 0,
     };

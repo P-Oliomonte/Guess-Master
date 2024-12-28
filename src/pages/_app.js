@@ -1,6 +1,7 @@
 import GlobalStyle from "../../globalStyles";
 import { useState } from "react";
 import useLocalStorageState from "use-local-storage-state";
+import Layout from "../../components/Layout/Layout";
 
 export default function App({ Component, pageProps }) {
   const [mode, setMode] = useState("start");
@@ -12,7 +13,7 @@ export default function App({ Component, pageProps }) {
   const [game, setGame] = useLocalStorageState("game", {
     defaultValue: [],
   });
-
+  console.log("game in _app.js: ", game);
   const [question, setQuestion] = useLocalStorageState("question", {
     defaultValue: "",
   });
@@ -20,6 +21,12 @@ export default function App({ Component, pageProps }) {
   const [result, setResult] = useLocalStorageState("result", {
     defaultValue: {},
   });
+
+  const [isShowExplanation, setIsShowExplanation] = useState(false);
+
+  function toggleIsShowExplanation() {
+    setIsShowExplanation(!isShowExplanation);
+  }
 
   function handleChangeResult(newResult) {
     setResult(newResult);
@@ -43,8 +50,8 @@ export default function App({ Component, pageProps }) {
   }
 
   function handleAddTotalScore(playerId, score) {
-    setPlayers(
-      players.map((player) => {
+    setPlayers((prevPlayers) =>
+      prevPlayers.map((player) => {
         if (player.playerId === playerId) {
           return { ...player, score: player.score + score };
         }
@@ -57,24 +64,52 @@ export default function App({ Component, pageProps }) {
     setQuestion(question);
   }
 
+  function handleAddRound() {
+    setGame((prevGame) => {
+      return {
+        ...prevGame,
+        currentRound: prevGame.currentRound + 1,
+      };
+    });
+  }
+
+  function handleDeleteQuestion() {
+    setQuestion("");
+  }
+
+  function handleDeleteResult() {
+    setResult({});
+  }
+
   return (
     <>
       <GlobalStyle />
-      <Component
-        {...pageProps}
+      <Layout
         mode={mode}
-        handleChangeMode={handleChangeMode}
-        players={players}
-        handleAddPlayers={handleAddPlayers}
-        handleDeletePlayer={handleDeletePlayer}
-        game={game}
-        handleChangeGame={handleChangeGame}
-        question={question}
-        handleChangeQuestion={handleChangeQuestion}
         result={result}
-        onChangeResult={handleChangeResult}
-        handleAddTotalScore={handleAddTotalScore}
-      />
+        isShowExplanation={isShowExplanation}
+        toggleIsShowExplanation={toggleIsShowExplanation}
+      >
+        <Component
+          {...pageProps}
+          mode={mode}
+          handleChangeMode={handleChangeMode}
+          players={players}
+          handleAddPlayers={handleAddPlayers}
+          handleDeletePlayer={handleDeletePlayer}
+          game={game}
+          handleChangeGame={handleChangeGame}
+          question={question}
+          handleChangeQuestion={handleChangeQuestion}
+          result={result}
+          onChangeResult={handleChangeResult}
+          handleAddTotalScore={handleAddTotalScore}
+          toggleIsShowExplanation={toggleIsShowExplanation}
+          handleAddRound={handleAddRound}
+          handleDeleteQuestion={handleDeleteQuestion}
+          handleDeleteResult={handleDeleteResult}
+        />
+      </Layout>
     </>
   );
 }

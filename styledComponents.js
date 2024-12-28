@@ -37,26 +37,15 @@ export const StyledMainButton = styled.button`
   }
 `;
 
-export const StyledGameContainer = styled.div`
+export const StyledGameContainer = styled.main`
   margin: 0 auto;
-  padding: 110px 0 50px 0;
+  padding: 0 0 50px 0;
   display: flex;
   flex-direction: column;
   justify-content: center;
   align-items: center;
   width: 80%;
   max-width: 600px;
-`;
-
-export const StyledStartContainer = styled(StyledGameContainer)`
-  padding-top: 0;
-  margin: 50vh auto;
-  transform: translateY(-60%);
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
-  width: 80%;
 `;
 
 export const StyledMainHeadline = styled.h2`
