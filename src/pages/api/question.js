@@ -17,6 +17,7 @@ export default async function handler(request, response) {
     The questions must:
     - Not be a Yes or No question.
     - Start phrases like "How many..." or "How much..." or "How long..." etc. but vary between those and other phrases.
+    - Include the unit of measurement if applicable in the question.
     - Be about interesting or surprising quantities or measurements.    
     
     Your response must:
