@@ -27,8 +27,6 @@ export default function ResultScreen({
   onChangeResult,
   toggleIsShowExplanation,
 }) {
-  console.log("Result in ResultScreen: ", result);
-
   const [isButtonDisabled, setIsButtonDisabled] = useState(true);
 
   useEffect(() => {

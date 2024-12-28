@@ -26,11 +26,8 @@ export default function RankingsSceen({
   const [isWinner, setIsWinner] = useState(false);
   const sortedPlayers = players.sort((a, b) => b.score - a.score);
 
-  console.log("players", players);
-
   useEffect(() => {
     if (game.currentRound === game.numberOfRounds) {
-      console.log("Winner detected");
       setIsWinner(true);
     } else {
       setIsWinner(false);

@@ -13,7 +13,7 @@ export default function App({ Component, pageProps }) {
   const [game, setGame] = useLocalStorageState("game", {
     defaultValue: [],
   });
-  console.log("game in _app.js: ", game);
+
   const [question, setQuestion] = useLocalStorageState("question", {
     defaultValue: "",
   });
