@@ -4,6 +4,7 @@ import SetupScreen from "../../components/Setup/SetupScreen";
 import QuestionScreen from "../../components/Question/QuestionScreen";
 import AnswerScreen from "../../components/Answer/AnswerScreen";
 import ResultScreen from "../../components/Result/ResultScreen";
+import RankingsSceen from "../../components/Rankings/RankingsScreen";
 import { useState } from "react";
 
 export default function Home({
@@ -19,6 +20,11 @@ export default function Home({
   result,
   onChangeResult,
   handleAddTotalScore,
+  toggleIsShowExplanation,
+  handleAddRound,
+  handleDeleteQuestion,
+  handleDeleteResult,
+  handleResetPlayersScores,
 }) {
   const [questionSpinner, setQuestionSpinner] = useState(false);
 
@@ -111,6 +117,20 @@ export default function Home({
             onChangeMode={handleChangeMode}
             onAddTotalScore={handleAddTotalScore}
             onChangeResult={onChangeResult}
+            toggleIsShowExplanation={toggleIsShowExplanation}
+          />
+        )}
+
+        {mode === "rankings" && (
+          <RankingsSceen
+            players={players}
+            game={game}
+            onChangeMode={handleChangeMode}
+            onAddRound={handleAddRound}
+            onDeleteQuestion={handleDeleteQuestion}
+            onDeleteResult={handleDeleteResult}
+            onChangeGame={handleChangeGame}
+            onResetPlayersScores={handleResetPlayersScores}
           />
         )}
       </div>

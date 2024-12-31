@@ -37,26 +37,15 @@ export const StyledMainButton = styled.button`
   }
 `;
 
-export const StyledGameContainer = styled.div`
+export const StyledGameContainer = styled.main`
   margin: 0 auto;
-  padding: 110px 0 50px 0;
+  padding: 0 0 50px 0;
   display: flex;
   flex-direction: column;
   justify-content: center;
   align-items: center;
   width: 80%;
   max-width: 600px;
-`;
-
-export const StyledStartContainer = styled(StyledGameContainer)`
-  padding-top: 0;
-  margin: 50vh auto;
-  transform: translateY(-60%);
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
-  width: 80%;
 `;
 
 export const StyledMainHeadline = styled.h2`
@@ -94,6 +83,23 @@ export const StyledBoardHeaderContent = styled.p`
   color: var(--neutral-light);
   text-align: center;
   padding: 0 10px;
+`;
+
+export const StyledResultsWrapper = styled.div`
+  display: flex;
+  justify-content: space-between;
+  gap: 4px;
+  width: 100%;
+`;
+
+export const StyledResults = styled.div`
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  background-color: var(--primary-dark);
+  height: 29px;
+  padding: 0 10px 0 10px;
+  border-radius: 5px;
 `;
 
 export const StyledInstruction = styled.p`

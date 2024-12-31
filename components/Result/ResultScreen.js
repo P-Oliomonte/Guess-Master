@@ -13,6 +13,8 @@ import {
   StyledBoardHeadline,
   StyledBoardHeaderWrapper,
   StyledBoardHeaderContent,
+  StyledResultsWrapper,
+  StyledResults,
 } from "../../styledComponents";
 import { useState, useEffect } from "react";
 
@@ -23,17 +25,16 @@ export default function ResultScreen({
   onChangeMode,
   onAddTotalScore,
   onChangeResult,
+  toggleIsShowExplanation,
 }) {
-  console.log("Result in ResultScreen: ", result);
-
-  const [isButtonDisabled, seIstButtonDisabled] = useState(true);
+  const [isButtonDisabled, setIsButtonDisabled] = useState(true);
 
   useEffect(() => {
     if (!result || !result.players || !result.question || !result.answer) {
       return;
     }
 
-    seIstButtonDisabled(false);
+    setIsButtonDisabled(false);
 
     const updatedPlayers = result.players.map((thisRoundsPlayer) => {
       let score;
@@ -75,9 +76,7 @@ export default function ResultScreen({
         <StyledInstruction>Calculating result...</StyledInstruction>
         <LargeLoadingSpinner />
         <StyledLine />
-        <StyledMainButton disabled={isButtonDisabled}>
-          Rankings
-        </StyledMainButton>
+        <StyledMainButton disabled={isButtonDisabled}>Ranking</StyledMainButton>
       </StyledGameContainer>
     );
   }
@@ -100,14 +99,14 @@ export default function ResultScreen({
         <StyledAnswer>{result.answer}</StyledAnswer>
       </StyledAnswerContainer>
 
-      <StyledSmallButton type="button">Show explanation</StyledSmallButton>
+      <StyledSmallButton type="button" onClick={toggleIsShowExplanation}>
+        Show explanation
+      </StyledSmallButton>
 
       <StyledBoard>
         <StyledBoardHeadline>Results</StyledBoardHeadline>
         <StyledBoardHeaderWrapper>
-          <StyledBoardHeaderContentPlayer>
-            Player
-          </StyledBoardHeaderContentPlayer>
+          <StyledBoardHeaderContentPlayer />
           <StyledBoardHeaderContentGuess>
             Your guess
           </StyledBoardHeaderContentGuess>
@@ -138,8 +137,8 @@ export default function ResultScreen({
 
       <StyledLine />
 
-      <StyledMainButton onClick={() => onChangeMode("ranking")}>
-        Rankings
+      <StyledMainButton onClick={() => onChangeMode("rankings")}>
+        Ranking
       </StyledMainButton>
     </StyledGameContainer>
   );
@@ -187,23 +186,6 @@ export const StyledSmallButton = styled.button`
   &:active {
     background: var(--secondary-light);
   }
-`;
-
-const StyledResultsWrapper = styled.div`
-  display: flex;
-  justify-content: space-between;
-  gap: 4px;
-  width: 100%;
-`;
-
-const StyledResults = styled.div`
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  background-color: var(--primary-dark);
-  height: 29px;
-  padding: 0 10px 0 10px;
-  border-radius: 5px;
 `;
 
 const StyledResultsPlayer = styled(StyledResults)`
