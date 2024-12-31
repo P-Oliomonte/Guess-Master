@@ -16,6 +16,10 @@ export default function Layout({
         </StyledHeader>
       )}
       {children}
+      <StyledFooter>
+        <StyledFooterButton>Manual</StyledFooterButton>
+        <StyledFooterButton>Reset</StyledFooterButton>
+      </StyledFooter>
       {isShowExplanation && (
         <StyledBackdrop onClick={toggleIsShowExplanation}>
           <StyledModal>
@@ -74,4 +78,27 @@ const StyledExplanation = styled.p`
 
 const StyledExplanationHeadline = styled(StyledBoardHeadline)`
   color: var(--primary-light);
+`;
+
+const StyledFooter = styled.footer`
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  width: 82%;
+  max-width: 602px;
+  height: 50px;
+  background: linear-gradient(#14142a00, var(--primary-dark) 30%);
+  position: fixed;
+  bottom: 0;
+  left: 50%;
+  transform: translateX(-50%);
+`;
+
+const StyledFooterButton = styled.button`
+  font: var(--button);
+  color: var(--neutral-light);
+  background: none;
+  border: none;
+  text-decoration: underline var(--secondary-light);
+  cursor: pointer;
 `;
