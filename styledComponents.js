@@ -134,6 +134,13 @@ export const StyledInput = styled.input`
   &:focus {
     outline: none;
   }
+
+  &:-webkit-autofill {
+    -webkit-box-shadow: 0 0 0px 100px var(--primary-dark) inset;
+    -webkit-text-fill-color: var(--neutral-light);
+    font: var(--regular);
+    font-size: 0.625rem;
+  }
 `;
 
 export const StyledInputWrapper = styled.div`

@@ -89,6 +89,10 @@ export default function App({ Component, pageProps }) {
     setResult({});
   }
 
+  function handleDeletePlayers() {
+    setPlayers([]);
+  }
+
   return (
     <>
       <GlobalStyle />
@@ -97,6 +101,12 @@ export default function App({ Component, pageProps }) {
         result={result}
         isShowExplanation={isShowExplanation}
         toggleIsShowExplanation={toggleIsShowExplanation}
+        onChangeMode={handleChangeMode}
+        onDeleteQuestion={handleDeleteQuestion}
+        onDeleteResult={handleDeleteResult}
+        onChangeGame={handleChangeGame}
+        onResetPlayersScores={handleResetPlayersScores}
+        onDeletePlayers={handleDeletePlayers}
       >
         <Component
           {...pageProps}

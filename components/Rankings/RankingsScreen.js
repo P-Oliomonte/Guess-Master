@@ -43,7 +43,6 @@ export default function RankingsSceen({
 
   function handleStartNewGame() {
     onChangeMode("setup");
-    onAddRound();
     onDeleteQuestion();
     onDeleteResult();
     onChangeGame({});

@@ -1,4 +1,5 @@
 import styled from "styled-components";
+import { useState } from "react";
 import { StyledBoardHeadline } from "../../styledComponents";
 
 export default function Layout({
@@ -7,7 +8,25 @@ export default function Layout({
   result,
   isShowExplanation,
   toggleIsShowExplanation,
+  onChangeMode,
+  onDeleteQuestion,
+  onDeleteResult,
+  onChangeGame,
+  onResetPlayersScores,
+  onDeletePlayers,
 }) {
+  const [isShowResetConfirmation, setIsShowResetConfirmation] = useState(false);
+
+  function handleReset() {
+    onChangeMode("start");
+    onDeleteQuestion();
+    onDeleteResult();
+    onChangeGame({});
+    onResetPlayersScores();
+    setIsShowResetConfirmation(false);
+    onDeletePlayers();
+  }
+
   return (
     <>
       {mode !== "start" && (
@@ -16,17 +35,44 @@ export default function Layout({
         </StyledHeader>
       )}
       {children}
+
       <StyledFooter>
         <StyledFooterButton>Manual</StyledFooterButton>
-        <StyledFooterButton>Reset</StyledFooterButton>
+        <StyledFooterButton onClick={() => setIsShowResetConfirmation(true)}>
+          Reset
+        </StyledFooterButton>
       </StyledFooter>
+
       {isShowExplanation && (
         <StyledBackdrop onClick={toggleIsShowExplanation}>
           <StyledModal>
             <StyledExplanationHeadline>Explanation</StyledExplanationHeadline>
 
-            <StyledExplanation>{result.explanation}</StyledExplanation>
+            <StyledModalText>{result.explanation}</StyledModalText>
           </StyledModal>
+        </StyledBackdrop>
+      )}
+      {isShowResetConfirmation && (
+        <StyledBackdrop onClick={() => setIsShowResetConfirmation(false)}>
+          <StyledConfirmationDialog>
+            <StyledConfirmationDialogText>
+              Are you sure you want to reset the game?
+            </StyledConfirmationDialogText>
+            <StyledConfirmationDialogButtonWrapper>
+              <StyledConfirmationDialogButton
+                type="button"
+                onClick={handleReset}
+              >
+                Yes
+              </StyledConfirmationDialogButton>
+              <StyledConfirmationDialogCancelButton
+                type="button"
+                onClick={() => setIsShowResetConfirmation(false)}
+              >
+                Cancel
+              </StyledConfirmationDialogCancelButton>
+            </StyledConfirmationDialogButtonWrapper>
+          </StyledConfirmationDialog>
         </StyledBackdrop>
       )}
     </>
@@ -69,15 +115,67 @@ const StyledModal = styled.div`
   border: 2px solid var(--secondary-light);
 `;
 
-const StyledExplanation = styled.p`
+const StyledConfirmationDialog = styled(StyledModal)`
+  max-width: 280px;
+`;
+
+const StyledModalText = styled.p`
   color: var(--neutral-light);
   font: var(--button);
   line-height: 1.75;
   padding-top: 12px;
 `;
 
+const StyledConfirmationDialogText = styled(StyledModalText)`
+  padding: 0;
+  text-align: center;
+`;
+
 const StyledExplanationHeadline = styled(StyledBoardHeadline)`
   color: var(--primary-light);
+`;
+
+const StyledConfirmationDialogButtonWrapper = styled.div`
+  display: flex;
+  justify-content: center;
+  gap: 10px;
+  padding-top: 16px;
+`;
+
+const StyledConfirmationDialogButton = styled.button`
+  display: inline-block;
+  font: var(--button);
+  color: var(--neutral-light);
+  padding: 0 16px;
+  background-color: var(--primary-dark);
+  min-width: 60px;
+  height: 26px;
+  border: 1px solid var(--secondary-light);
+  border-radius: 13px;
+  cursor: pointer;
+  transition: background 0.3s ease;
+
+  &:hover {
+    background-color: var(--secondary-light);
+  }
+
+  &:active {
+    background-color: var(--secondary-light);
+  }
+`;
+
+const StyledConfirmationDialogCancelButton = styled(
+  StyledConfirmationDialogButton
+)`
+  border: 1px solid var(--primary-light);
+
+  &:hover {
+    background-color: var(--primary-light);
+  }
+
+  &:active {
+    background-color: var(--primary-light);
+  }
 `;
 
 const StyledFooter = styled.footer`
