@@ -26,6 +26,7 @@ export default function ResultScreen({
   onAddTotalScore,
   onChangeResult,
   toggleIsShowExplanation,
+  question,
 }) {
   const [isButtonDisabled, setIsButtonDisabled] = useState(true);
 
@@ -73,6 +74,11 @@ export default function ResultScreen({
       <StyledGameContainer>
         <StyledLine />
         <StyledMainHeadline>Round {game.currentRound}</StyledMainHeadline>
+
+        <StyledQuestionBoard>
+          <StyledQuestion>{question}</StyledQuestion>
+        </StyledQuestionBoard>
+
         <StyledInstruction>Calculating result...</StyledInstruction>
         <LargeLoadingSpinner />
         <StyledLine />

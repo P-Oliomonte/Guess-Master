@@ -114,6 +114,7 @@ export default function Home({
             result={result}
             players={players}
             game={game}
+            question={question}
             onChangeMode={handleChangeMode}
             onAddTotalScore={handleAddTotalScore}
             onChangeResult={onChangeResult}
