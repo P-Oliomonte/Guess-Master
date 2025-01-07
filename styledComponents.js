@@ -1,4 +1,13 @@
-import styled from "styled-components";
+import styled, { keyframes } from "styled-components";
+
+export const appearOnScreen = keyframes`
+0% {
+  opacity: 0; 
+}
+100% {
+  opacity: 1; 
+}
+`;
 
 export const StyledLine = styled.div`
   background: linear-gradient(
@@ -46,6 +55,7 @@ export const StyledGameContainer = styled.main`
   align-items: center;
   width: 80%;
   max-width: 600px;
+  animation: ${appearOnScreen} 0.5s ease;
 `;
 
 export const StyledMainHeadline = styled.h2`

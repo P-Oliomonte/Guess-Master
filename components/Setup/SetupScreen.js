@@ -1,4 +1,4 @@
-import styled from "styled-components";
+import styled, { keyframes } from "styled-components";
 import { uid } from "uid";
 import {
   StyledGameContainer,
@@ -11,6 +11,7 @@ import {
   StyledBoard,
   StyledBoardHeadline,
   StyledInstruction,
+  appearOnScreen,
 } from "../../styledComponents";
 
 export default function SetupScreen({
@@ -178,6 +179,7 @@ const StyledPlayerCard = styled.div`
   width: 100%;
   padding: 0 0 0 10px;
   border-radius: 5px;
+  animation: ${appearOnScreen} 0.5s ease;
 `;
 
 const StyledPlayerName = styled.p`
