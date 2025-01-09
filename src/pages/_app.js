@@ -4,7 +4,9 @@ import useLocalStorageState from "use-local-storage-state";
 import Layout from "../../components/Layout/Layout";
 
 export default function App({ Component, pageProps }) {
-  const [mode, setMode] = useState("start");
+  const [mode, setMode] = useLocalStorageState("mode", {
+    defaultValue: "start",
+  });
 
   const [players, setPlayers] = useLocalStorageState("players", {
     defaultValue: [],
