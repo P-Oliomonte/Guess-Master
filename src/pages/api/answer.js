@@ -85,7 +85,7 @@ You are a game show host for a guessing game. Your task is to analyze the game d
 
   try {
     const completion = await openai.chat.completions.create({
-      model: "o3-mini-2025-01-31",
+      model: "gpt-4",
       messages: [
         {
           role: "system",
