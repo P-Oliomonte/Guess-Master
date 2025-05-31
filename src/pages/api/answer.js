@@ -94,7 +94,7 @@ You are a game show host for a guessing game. Your task is to analyze the game d
         },
         { role: "user", content: prompt },
       ],
-      max_completion_tokens: 1000,
+      max_tokens: 1000,
       temperature: 0.7,
       top_p: 0.9,
     });
