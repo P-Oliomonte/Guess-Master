@@ -5,38 +5,44 @@ const openai = new OpenAI({
 });
 
 function extractNumericValue(answer) {
-  const match = answer.match(/-?\d+(\.\d+)?/); // Regex to find a number
-  return match ? parseFloat(match[0]) : null; // Convert to a number or return null if no match
+  const match = String(answer).match(/-?\d+(\.\d+)?/);
+  return match ? parseFloat(match[0]) : null;
 }
 
 function calculateRanks(players, correctAnswer) {
   const numericRightAnswer = extractNumericValue(correctAnswer);
 
   if (numericRightAnswer === null) {
-    throw new Error("Correct answer does not contain a valid numeric value.");
+    throw new Error(
+      "Correct answer does not contain a valid numeric value."
+    );
   }
 
-  // Calculate absolute differences
   const rankedPlayers = players.map((player) => {
-    const numericPlayerAnswer = extractNumericValue(player.playerAnswer);
+    const numericPlayerAnswer = extractNumericValue(
+      player.playerAnswer
+    );
 
     if (numericPlayerAnswer === null) {
       throw new Error(
-        `Player answer \"${player.playerAnswer}\" is not a valid number.`
+        `Player answer "${player.playerAnswer}" is not a valid number.`
       );
     }
 
     return {
       ...player,
-      absoluteDifference: Math.abs(numericPlayerAnswer - numericRightAnswer),
+      absoluteDifference: Math.abs(
+        numericPlayerAnswer - numericRightAnswer
+      ),
     };
   });
 
-  // Sort by absolute difference
-  rankedPlayers.sort((a, b) => a.absoluteDifference - b.absoluteDifference);
+  rankedPlayers.sort(
+    (a, b) => a.absoluteDifference - b.absoluteDifference
+  );
 
-  // Assign ranks
   let rank = 1;
+
   for (let i = 0; i < rankedPlayers.length; i++) {
     if (
       i > 0 &&
@@ -45,78 +51,100 @@ function calculateRanks(players, correctAnswer) {
     ) {
       rank = i + 1;
     }
+
     rankedPlayers[i].playerRank = rank;
   }
 
-  // Remove temporary `absoluteDifference` field
-  return rankedPlayers.map(({ absoluteDifference, ...player }) => player);
+  return rankedPlayers.map(
+    ({ absoluteDifference, ...player }) => player
+  );
 }
 
-export default async function handler(request, response) {
-  if (request.method !== "POST") {
-    return response
-      .status(405)
-      .json({ message: "Only POST requests are allowed" });
+export default async function handler(req, res) {
+  if (req.method !== "POST") {
+    return res.status(405).json({
+      message: "Only POST requests are allowed",
+    });
   }
 
-  const data = request.body;
+  const data = req.body;
 
   if (!data) {
-    return response.status(400).json({ message: "Missing data" });
+    return res.status(400).json({
+      message: "Missing data",
+    });
   }
 
-  const prompt = `
-You are a game show host for a guessing game. Your task is to analyze the game data and respond as follows:
-
-1. Keep the "question" key unchanged.
-2. Replace the "answer" key with the correct answer as a precise single value with units (if applicable). Ensure the answer is accurate and not a range.
-3. Replace the "explanation" key with a concise explanation (max 1000 characters):
-   - Explain how you arrived at the correct answer.
-   - Identify the winner(s) by finding the player(s) with the smallest absolute difference between their guess (playerAnswer) and the correct answer.
-   - Mention the name(s) of the winner(s) and why they won.
-   - Playfully make fun of the player(s) with the largest absolute difference, but keep it lighthearted.
-4. Keep "players" unchanged. Do not calculate or mention "playerRank". Only provide the correct answer and explanation.
-
-  Input Data:
-  ${JSON.stringify(data)}
-  
-  Output the response in valid JSON format. Ensure no additional information or formatting is included.
-    `;
-
   try {
-    const completion = await openai.chat.completions.create({
-      model: "gpt-4",
-      messages: [
-        {
-          role: "system",
-          content:
-            "You are a helpful, very accurate assistant and witty game show host.",
+    const aiResponse = await openai.responses.create({
+      model: "gpt-5.4",
+
+      instructions: `
+You are an accurate fact-checking assistant and witty game show host.
+
+Rules:
+
+1. Keep the question unchanged.
+2. Determine the correct answer as a single precise value.
+3. Include units where applicable.
+4. Never return a range.
+5. Write a concise explanation (max 1000 characters).
+6. Explain how the answer was determined.
+7. Mention the winner(s) based on the closest guess.
+8. Lightheartedly tease the worst guess without being rude.
+9. Return only valid JSON matching the schema.
+      `,
+
+      text: {
+        format: {
+          type: "json_schema",
+          name: "game_result",
+          schema: {
+            type: "object",
+            properties: {
+              answer: {
+                type: "string",
+              },
+              explanation: {
+                type: "string",
+              },
+            },
+            required: ["answer", "explanation"],
+            additionalProperties: false,
+          },
         },
-        { role: "user", content: prompt },
-      ],
-      max_tokens: 1000,
-      temperature: 0.7,
-      top_p: 0.9,
+      },
+
+      input: `
+Question:
+${data.question}
+
+Players:
+${JSON.stringify(data.players)}
+      `,
     });
 
-    const content = completion.choices[0].message.content
-      .trim()
-      .replace(/^```json|```$/g, "");
+    const result = JSON.parse(aiResponse.output_text);
 
-    const aiResponse = JSON.parse(content);
-
-    const rankedPlayers = calculateRanks(data.players, aiResponse.answer);
+    const rankedPlayers = calculateRanks(
+      data.players,
+      result.answer
+    );
 
     const finalResponse = {
       question: data.question,
-      answer: aiResponse.answer,
-      explanation: aiResponse.explanation,
+      answer: result.answer,
+      explanation: result.explanation,
       players: rankedPlayers,
     };
 
-    response.status(200).json(finalResponse);
+    return res.status(200).json(finalResponse);
   } catch (error) {
     console.error("Error generating answer:", error);
-    response.status(500).json({ message: "Error generating answer", error });
+
+    return res.status(500).json({
+      message: "Error generating answer",
+      error: error.message,
+    });
   }
 }
