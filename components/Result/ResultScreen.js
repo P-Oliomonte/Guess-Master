@@ -176,8 +176,8 @@ export const StyledSmallButton = styled.button`
   background: var(--primary-dark);
   color: var(--neutral-light);
   border: 1px solid var(--secondary-light);
-  width: 100px;
-  height: 24px;
+  width: 150px;
+  height: 30px;
   border-radius: 12px;
   color: var(--neutral-light);
   font-size: 1rem;
@@ -204,7 +204,7 @@ const StyledResultsAnswer = styled(StyledResults)`
 `;
 
 const StyledResultsScore = styled(StyledResults)`
-  min-width: 50px;
+  min-width: 70px;
   justify-content: flex-end;
 `;
 
@@ -222,5 +222,5 @@ const StyledBoardHeaderContentGuess = styled(StyledBoardHeaderContent)`
 `;
 
 const StyledBoardHeaderContentScore = styled(StyledBoardHeaderContent)`
-  min-width: 50px;
+  min-width: 70px;
 `;

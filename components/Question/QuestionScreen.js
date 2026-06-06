@@ -71,7 +71,7 @@ const StyledInput = styled.input`
   font: var(--regular);
   color: var(--neutral-light);
   width: 100%;
-  height: 26px;
+  height: 30px;
   background-color: var(--primary-dark);
   border: 1px solid var(--secondary-light);
   border-radius: 13px;
@@ -91,7 +91,7 @@ const StyledAiButton = styled.button`
   color: var(--neutral-light);
   background-color: var(--secondary-light);
   min-width: 45px;
-  height: 26px;
+  height: 30px;
   border: none;
   border-radius: 13px;
   cursor: pointer;

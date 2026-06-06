@@ -120,7 +120,7 @@ const StyledFormButton = styled.button`
   color: var(--neutral-light);
   background-color: var(--secondary-light);
   min-width: 45px;
-  height: 26px;
+  height: 30px;
   border: none;
   border-radius: 13px;
   cursor: pointer;
@@ -155,7 +155,7 @@ const StyledRoundsForm = styled.form`
 `;
 
 const StyledRoundsLabel = styled(StyledLabel)`
-  width: 109px;
+  width: 180px;
 `;
 
 const StyledRoundsInput = styled(StyledInput)`

@@ -26,12 +26,12 @@ export default createGlobalStyle`
     --neutral-dark: #645462;
     --gradient: linear-gradient(90deg, var(--primary-light), var(--secondary-light));
 
-    --main-headline:  600 1.45rem ${instrumentSans.style.fontFamily}, system-ui;
-    --board-headline:  400 0.95rem ${instrumentSans.style.fontFamily}, system-ui;
-    --instruction: 600 0.8rem ${instrumentSans.style.fontFamily}, system-ui;
-    --question: 400 0.8rem ${instrumentSans.style.fontFamily}, system-ui;
+    --main-headline:  600 1.5rem ${instrumentSans.style.fontFamily}, system-ui;
+    --board-headline:  400 1.25rem ${instrumentSans.style.fontFamily}, system-ui;
+    --instruction: 600 1.125rem ${instrumentSans.style.fontFamily}, system-ui;
+    --question: 400 1.125rem ${instrumentSans.style.fontFamily}, system-ui;
     --regular: 400 1rem ${instrumentSans.style.fontFamily}, system-ui;
-    --button: 400 0.75rem ${instrumentSans.style.fontFamily}, system-ui;
+    --button: 400 1rem ${instrumentSans.style.fontFamily}, system-ui;
 
     ::-webkit-scrollbar { display: none; };
 

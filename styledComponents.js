@@ -119,12 +119,13 @@ export const StyledInstruction = styled.p`
 `;
 
 export const StyledLabel = styled.label`
+  width: 150px;
   text-align: left;
   align-content: center;
   display: inline-block;
   font: var(--regular);
   color: var(--neutral-light);
-  height: 26px;
+  height: 30px;
   background: var(--gradient);
   border-radius: 13px 0 0 13px;
   padding: 0 10px;
@@ -135,7 +136,7 @@ export const StyledInput = styled.input`
   font: var(--regular);
   color: var(--neutral-light);
   width: 100%;
-  height: 26px;
+  height: 30px;
   background-color: var(--primary-dark);
   border: 1px solid var(--secondary-light);
   border-radius: 0 13px 13px 0;

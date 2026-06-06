@@ -149,7 +149,7 @@ const StyledConfirmationDialogButton = styled.button`
   padding: 0 16px;
   background-color: var(--primary-dark);
   min-width: 60px;
-  height: 26px;
+  height: 30px;
   border: 1px solid var(--secondary-light);
   border-radius: 13px;
   cursor: pointer;
