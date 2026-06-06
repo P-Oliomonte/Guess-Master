@@ -12,10 +12,9 @@ export default async function handler(req, res) {
   }
   try {
     const response = await openai.responses.create({
-      model: "gpt-5.4",
+      model: "gpt-4.1-mini",
       temperature: 1.8,
       instructions: `
-
 You are a creative game show writer generating unique, diverse, and surprising guessing questions.
 Rules:
 - Never create yes/no questions.

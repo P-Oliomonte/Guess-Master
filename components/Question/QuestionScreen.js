@@ -36,7 +36,7 @@ export default function QuestionScreen({
           type="text"
           name="question"
           id="question"
-          value={questionSpinner ? "" : question}
+          value={questionSpinner ? "" : question.question}
           onChange={(event) => onChangeQuestion(event.target.value)}
         />
         <StyledAiButton type="button" onClick={getAiQuestion}>
@@ -47,7 +47,7 @@ export default function QuestionScreen({
 
       <StyledQuestionBoard>
         {questionSpinner && <LoadingSpinner />}
-        {!questionSpinner && <StyledQuestion>{question}</StyledQuestion>}
+        {!questionSpinner && <StyledQuestion>{question.question}</StyledQuestion>}
       </StyledQuestionBoard>
 
       <StyledLine />

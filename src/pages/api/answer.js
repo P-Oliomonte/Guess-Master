@@ -77,7 +77,7 @@ export default async function handler(req, res) {
 
   try {
     const aiResponse = await openai.responses.create({
-      model: "gpt-5.4",
+      model: "gpt-4.1-mini",
 
       instructions: `
 You are an accurate fact-checking assistant and witty game show host.
