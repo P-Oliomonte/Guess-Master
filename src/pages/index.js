@@ -39,7 +39,8 @@ export default function Home({
       }
 
       const aiQuestion = await response.json();
-      handleChangeQuestion(aiQuestion);
+      console.log("AI Question:", aiQuestion);
+      handleChangeQuestion(aiQuestion.question);
     } catch (error) {
       console.error("Error fetching question:", error);
       throw error;
