@@ -30,7 +30,7 @@ export default createGlobalStyle`
     --board-headline:  400 0.95rem ${instrumentSans.style.fontFamily}, system-ui;
     --instruction: 600 0.8rem ${instrumentSans.style.fontFamily}, system-ui;
     --question: 400 0.8rem ${instrumentSans.style.fontFamily}, system-ui;
-    --regular: 400 0.625rem ${instrumentSans.style.fontFamily}, system-ui;
+    --regular: 400 1rem ${instrumentSans.style.fontFamily}, system-ui;
     --button: 400 0.75rem ${instrumentSans.style.fontFamily}, system-ui;
 
     ::-webkit-scrollbar { display: none; };
