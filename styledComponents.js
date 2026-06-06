@@ -149,7 +149,7 @@ export const StyledInput = styled.input`
     -webkit-box-shadow: 0 0 0px 100px var(--primary-dark) inset;
     -webkit-text-fill-color: var(--neutral-light);
     font: var(--regular);
-    font-size: 0.625rem;
+    font-size: 1rem;
   }
 `;
 

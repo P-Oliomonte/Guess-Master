@@ -180,7 +180,7 @@ export const StyledSmallButton = styled.button`
   height: 24px;
   border-radius: 12px;
   color: var(--neutral-light);
-  font-size: 0.6rem;
+  font-size: 1rem;
   margin-bottom: 28px;
   cursor: pointer;
   transition: background 0.3s ease;

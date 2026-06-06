@@ -40,7 +40,7 @@ const StyledStartContainer = styled(StyledGameContainer)`
 
 const StyledWelcome = styled.p`
   color: var(--secondary-light);
-  font-size: 0.875rem;
+  font-size: 1rem;
   text-align: center;
   padding-bottom: 24px;
 `;
